@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badaai — Apps built to work where the signal doesn't</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #141922;
+    --ink-2: #1b2230;
+    --paper: #f4efe2;
+    --paper-2: #eee6d2;
+    --deep-ink: #1d2430;
+    --amber: #e8a33d;
+    --amber-deep: #c9821e;
+    --teal: #3e8172;
+    --teal-deep: #2f6459;
+    --rule: #333b4a;
+    --rule-light: #d9cfb5;
+    --text-dim: #9aa3b5;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(20, 25, 34, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--paper);
+  }
+  .logo span { color: var(--amber); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--amber); }
+  .nav-links { display: none; }
+  @media (min-width: 720px) {
+    .nav-links { display: flex; }
+  }
+
+  .hero {
+    padding: 72px 0 60px;
+    display: grid;
+    gap: 48px;
+  }
+  @media (min-width: 860px) {
+    .hero { grid-template-columns: 1.1fr 0.9fr; align-items: center; padding: 100px 0 90px; }
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 2px;
+    background: var(--amber);
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 62px);
+    line-height: 0.98;
+    color: var(--paper);
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  .hero-sub {
+    margin-top: 22px;
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 46ch;
+  }
+
+  .hero-ctas {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 22px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: var(--amber);
+    color: #1a1508;
+  }
+  .btn-primary:hover { background: var(--amber-deep); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--paper);
+    border-color: var(--rule);
+  }
+  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+  .tag-stage {
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+  }
+  .string {
+    width: 1px;
+    height: 46px;
+    background: var(--rule);
+    margin: 0 auto;
+  }
+  .tag {
+    width: 100%;
+    max-width: 300px;
+    background: var(--paper);
+    color: var(--deep-ink);
+    border-radius: 6px;
+    padding: 26px 24px 22px;
+    position: relative;
+    transform-origin: top center;
+    animation: swing 6s ease-in-out infinite;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.5);
+  }
+  .tag::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: var(--ink);
+    border-radius: 50%;
+    border: 3px solid var(--paper-2);
+  }
+  .tag::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 40px;
+    border-top: 1.5px dashed var(--rule-light);
+  }
+  @keyframes swing {
+    0%, 100% { transform: rotate(-2.5deg); }
+    50% { transform: rotate(2.5deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tag { animation: none; }
+  }
+  .tag-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+  .tag-name {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin-top: 4px;
+  }
+  .tag-body { margin-top: 22px; }
+  .tag-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .tag-row:last-child { border-bottom: none; }
+  .tag-row .k { color: #6b7280; }
+  .tag-row .v { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+  .stamp {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 6px 14px;
+    border: 2px solid var(--teal);
+    color: var(--teal-deep);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    border-radius: 3px;
+    transform: rotate(-3deg);
+  }
+
+  .section { padding: 70px 0; }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--paper);
+    max-width: 22ch;
+  }
+
+  .manifest {
+    margin-top: 44px;
+    border-top: 1px solid var(--rule);
+  }
+  .manifest-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .manifest-row .code {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--amber);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .manifest-row .desc {
+    font-size: 16px;
+    color: var(--paper);
+  }
+  .manifest-row .desc strong { color: var(--amber); font-weight: 600; }
+
+  .app-card {
+    margin-top: 40px;
+    background: var(--ink-2);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 40px;
+    display: grid;
+    gap: 36px;
+  }
+  @media (min-width: 800px) {
+    .app-card { grid-template-columns: 1fr 1fr; padding: 48px; }
+  }
+  .mockup {
+    background: var(--paper);
+    border-radius: 10px;
+    padding: 18px;
+    color: var(--deep-ink);
+  }
+  .mockup-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .badge-mini {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    background: var(--teal);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+  .mockup-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--rule-light);
+    font-size: 13px;
+  }
+  .mockup-row .n { font-weight: 600; }
+  .mockup-row .s { font-family: 'IBM Plex Mono', monospace; color: #6b7280; }
+  .mockup-row .low { color: var(--amber-deep); font-weight: 700; }
+
+  .app-info .app-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .app-info h3 {
+    font-size: 30px;
+    margin-top: 8px;
+    color: var(--paper);
+  }
+  .app-info p {
+    color: var(--text-dim);
+    margin-top: 14px;
+    font-size: 15px;
+  }
+  .app-price {
+    margin-top: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    color: var(--amber);
+  }
+  .app-price span {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-family: 'Inter', sans-serif;
+  }
+  .app-ctas {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .services-grid {
+    margin-top: 44px;
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  @media (min-width: 720px) {
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .service-cell {
+    background: var(--ink);
+    padding: 30px 26px;
+  }
+  .service-cell .num {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--teal);
+    font-size: 13px;
+  }
+  .service-cell h3 {
+    font-size: 20px;
+    margin-top: 10px;
+    color: var(--paper);
+  }
+  .service-cell p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .cta-band {
+    margin-top: 48px;
+    background: var(--amber);
+    color: #1a1508;
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .cta-band h3 {
+    font-size: 24px;
+    color: #1a1508;
+    max-width: 30ch;
+  }
+  .cta-band .btn-primary {
+    background: #1a1508;
+    color: var(--amber);
+  }
+  .cta-band .btn-primary:hover { background: #000; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 40px 0 32px;
+    margin-top: 40px;
+  }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+  }
+  .footer-inner .logo { font-size: 18px; }
+  .footer-links {
+    display: flex;
+    gap: 22px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+  }
+  .footer-links a { text-decoration: none; color: var(--text-dim); }
+  .footer-links a:hover { color: var(--amber); }
+  .footer-note {
+    margin-top: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #5a6272;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="logo">BADA<span>AI</span></a>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#services">Custom Builds</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="top" class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Badaai — Software Studio</div>
+      <h1>Built to work<br>where the <em>signal</em><br>doesn't.</h1>
+      <p class="hero-sub">
+        We build offline-first apps for people running real operations —
+        sari-sari stores, warehouses, small shops. No login walls, no sync
+        errors, no lost records when the bars drop to zero.
+      </p>
+      <div class="hero-ctas">
+        <a href="#apps" class="btn btn-primary">See the apps</a>
+        <a href="#services" class="btn btn-ghost">Get one built for you</a>
+      </div>
+    </div>
+
+    <div class="tag-stage">
+      <div>
+        <div class="string" aria-hidden="true"></div>
+        <div class="tag">
+          <div class="tag-item">Item · SKU BAI-001</div>
+          <div class="tag-name">Smart<br>Inventory Pro</div>
+          <div class="tag-body">
+            <div class="tag-row"><span class="k">Mode</span><span class="v">Offline</span></div>
+            <div class="tag-row"><span class="k">Platform</span><span class="v">Android / Win</span></div>
+            <div class="tag-row"><span class="k">Price</span><span class="v">₱99/mo</span></div>
+            <div class="tag-row"><span class="k">Trial</span><span class="v">30 days</span></div>
+          </div>
+          <div class="stamp">● Status: Active</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section" aria-label="What every Badaai app is built on">
+    <div class="section-label">Manifest</div>
+    <h2>Every Badaai app ships with the same non-negotiables.</h2>
+
+    <div class="manifest">
+      <div class="manifest-row">
+        <div class="code">001</div>
+        <div class="desc"><strong>Fully offline.</strong> Your data lives on the device, not a server that goes down when you can least afford it.</div>
+      </div>
+      <div class="manifest-row">
+        <div class="code">002</div>
+        <div class="desc"><strong>No account required.</strong> Open it and use it. Nothing to register, nothing to lose on logout.</div>
+      </div>
+      <div class="manifest-row">
+        <div class="code">003</div>
+        <div class="desc"><strong>Exports that work.</strong> PDF and CSV reports generated on-device — no internet needed to pull your own numbers.</div>
+      </div>
+      <div class="manifest-row">
+        <div class="code">004</div>
+        <div class="desc"><strong>Pay only when you're sure.</strong> Every app starts with a real free trial before any card, GCash, or Maya is involved.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="apps">
+  <section class="section">
+    <div class="section-label">Current Release</div>
+    <h2>Smart Inventory Pro</h2>
+
+    <div class="app-card">
+      <div class="mockup">
+        <div class="mockup-bar">
+          Smart Inventory
+          <span class="badge-mini">PREMIUM</span>
+        </div>
+        <div class="mockup-row"><span class="n">T-Shirt · Nike</span><span class="s">20 pcs</span></div>
+        <div class="mockup-row"><span class="n">Jeans · Levi's</span><span class="s">15 pcs</span></div>
+        <div class="mockup-row"><span class="n low">Notebook</span><span class="s low">5 pcs — LOW</span></div>
+        <div class="mockup-row"><span class="n">Bond Paper</span><span class="s">80 pcs</span></div>
+      </div>
+
+      <div class="app-info">
+        <div class="app-eyebrow">Inventory · POS · Reports</div>
+        <h3>Track stock and sales without needing a signal.</h3>
+        <p>
+          Product and inventory tracking, point-of-sale checkout, low-stock
+          alerts, a camera barcode scanner, and PDF/CSV exports — all running
+          fully offline on your phone or desktop. Built for sari-sari stores,
+          boutiques, and small warehouses that can't rely on internet uptime.
+        </p>
+        <div class="app-price">₱99<span> / month · 30-day free trial</span></div>
+        <div class="app-ctas">
+          <a href="https://github.com/riskpilot10-ui/smart-inventory-pro/releases/latest" class="btn btn-primary" onclick="trackEvent('download_apk')">Download for Android</a>
+          <a href="https://github.com/riskpilot10-ui/smart-inventory-pro/releases/latest" class="btn btn-ghost" onclick="trackEvent('download_exe')">Download for Windows</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="services">
+  <section class="section">
+    <div class="section-label">Custom Work</div>
+    <h2>Running a different kind of business? We'll build your version.</h2>
+
+    <div class="services-grid">
+      <div class="service-cell">
+        <div class="num mono">01</div>
+        <h3>Any workflow</h3>
+        <p>Booking, repairs, rentals, clinics, salons — same offline-first foundation, rebuilt around what your work actually needs tracked.</p>
+      </div>
+      <div class="service-cell">
+        <div class="num mono">02</div>
+        <h3>Android &amp; desktop</h3>
+        <p>One codebase, shipped as an Android app and a Windows desktop app, so your team isn't tied to one device.</p>
+      </div>
+      <div class="service-cell">
+        <div class="num mono">03</div>
+        <h3>Your pricing, your call</h3>
+        <p>One-time purchase or monthly subscription — we set it up to match how you actually want to charge your customers.</p>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <h3>Have a workflow that needs its own app?</h3>
+      <a href="#contact" class="btn btn-primary">Tell us about it</a>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="contact">
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="section-label">Contact</div>
+    <h2>Let's talk about what you're building.</h2>
+    <p class="hero-sub" style="margin-top:18px;">
+      Reach out with what your business does day-to-day, and we'll tell you
+      honestly whether an app like this fits — and what it would take to build.
+    </p>
+    <div class="hero-ctas">
+      <a href="mailto:badaai2026@gmail.com" class="btn btn-primary">badaai2026@gmail.com</a>
+      <a href="https://www.facebook.com/share/1BsmgyH6Lw/" target="_blank" rel="noopener" class="btn btn-ghost">Facebook Page</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a href="#top" class="logo">BADA<span style="color:var(--amber)">AI</span></a>
+      <ul class="footer-links">
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#services">Custom Builds</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://www.facebook.com/share/1BsmgyH6Lw/" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.instagram.com/businessaidataanalysis.26" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@badaaibooking" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="https://youtube.com/@badaai2026" target="_blank" rel="noopener">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-note">© 2026 Badaai. Built in the Philippines, for places the signal doesn't reach.</div>
+  </div>
+</footer>
+
+<script>
+function trackEvent(eventName) {
+    try {
+        fetch('/api/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: eventName }),
+            keepalive: true
+        }).catch(function() {});
+    } catch (e) {}
+}
+trackEvent('pageview');
+</script>
+
+</body>
+</html>
