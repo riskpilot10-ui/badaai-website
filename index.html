@@ -566,33 +566,9 @@
     <div class="section-label">Current Release</div>
     <h2>Smart Inventory Pro</h2>
 
-    <div class="app-card">
-      <div class="mockup">
-        <div class="mockup-bar">
-          Smart Inventory
-          <span class="badge-mini">PREMIUM</span>
-        </div>
-        <div class="mockup-row"><span class="n">T-Shirt · Nike</span><span class="s">20 pcs</span></div>
-        <div class="mockup-row"><span class="n">Jeans · Levi's</span><span class="s">15 pcs</span></div>
-        <div class="mockup-row"><span class="n low">Notebook</span><span class="s low">5 pcs — LOW</span></div>
-        <div class="mockup-row"><span class="n">Bond Paper</span><span class="s">80 pcs</span></div>
-      </div>
-
-      <div class="app-info">
-        <div class="app-eyebrow">Inventory · POS · Reports</div>
-        <h3>Track stock and sales without needing a signal.</h3>
-        <p>
-          Product and inventory tracking, point-of-sale checkout, low-stock
-          alerts, a camera barcode scanner, and PDF/CSV exports — all running
-          fully offline on your phone or desktop. Built for sari-sari stores,
-          boutiques, and small warehouses that can't rely on internet uptime.
-        </p>
-        <div class="app-price">₱99<span> / month · 30-day free trial</span></div>
-        <div class="app-ctas">
-          <a href="https://github.com/riskpilot10-ui/smart-inventory-pro/releases/latest" class="btn btn-primary" onclick="trackEvent('download_apk')">Download for Android</a>
-          <a href="https://github.com/riskpilot10-ui/smart-inventory-pro/releases/latest" class="btn btn-ghost" onclick="trackEvent('download_exe')">Download for Windows</a>
-        </div>
-      </div>
+    <!-- Dynamic Apps Container -->
+    <div id="apps-container">
+      <!-- Auto-loaded from apps/manifest.json -->
     </div>
   </section>
 </div>
@@ -660,19 +636,29 @@
   </div>
 </footer>
 
+<!-- Tracking Script -->
 <script>
-function trackEvent(eventName) {
+function trackEvent(eventName, extraData) {
     try {
+        const payload = { event: eventName };
+        if (extraData) {
+            Object.assign(payload, extraData);
+        }
         fetch('/api/track', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ event: eventName }),
+            body: JSON.stringify(payload),
             keepalive: true
         }).catch(function() {});
     } catch (e) {}
 }
-trackEvent('pageview');
+
+// Track page view with path
+trackEvent('pageview', { page: window.location.pathname || '/' });
 </script>
+
+<!-- Dynamic App Loader -->
+<script src="/js/apps-loader.js"></script>
 
 </body>
 </html>
