@@ -1,5 +1,5 @@
 export async function onRequest(context) {
-  // Gamitin ang SUBSCRIPTIONS KV
+  // ✅ Gamitin ang SUBSCRIPTIONS (tulad ng sa stats)
   const kv = context.env.SUBSCRIPTIONS;
 
   if (!kv) {
@@ -20,11 +20,13 @@ export async function onRequest(context) {
     const body = await context.request.json();
     const { event, page } = body;
 
+    // Get existing stats
     let stats = await kv.get("stats", "json");
     if (!stats) {
       stats = { total_visits: 0, unique_visitors: 0, page_views: {} };
     }
 
+    // Update stats
     stats.total_visits = (stats.total_visits || 0) + 1;
     
     if (page) {
@@ -32,9 +34,14 @@ export async function onRequest(context) {
       stats.page_views[page] = (stats.page_views[page] || 0) + 1;
     }
 
+    // Save to KV
     await kv.put("stats", JSON.stringify(stats));
 
-    return new Response(JSON.stringify({ success: true, stats }), {
+    return new Response(JSON.stringify({ 
+      success: true, 
+      message: "Event tracked",
+      stats 
+    }), {
       headers: { "Content-Type": "application/json" }
     });
   } catch (error) {
