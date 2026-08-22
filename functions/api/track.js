@@ -1,5 +1,6 @@
 export async function onRequest(context) {
-  const kv = context.env.BADAAI_KV;
+  // Gamitin ang SUBSCRIPTIONS KV
+  const kv = context.env.SUBSCRIPTIONS;
 
   if (!kv) {
     return new Response(JSON.stringify({ error: "KV namespace not found" }), {
@@ -17,15 +18,13 @@ export async function onRequest(context) {
 
   try {
     const body = await context.request.json();
-    const { event, page, userAgent } = body;
+    const { event, page } = body;
 
-    // Get existing stats
     let stats = await kv.get("stats", "json");
     if (!stats) {
       stats = { total_visits: 0, unique_visitors: 0, page_views: {} };
     }
 
-    // Update stats
     stats.total_visits = (stats.total_visits || 0) + 1;
     
     if (page) {
@@ -33,7 +32,6 @@ export async function onRequest(context) {
       stats.page_views[page] = (stats.page_views[page] || 0) + 1;
     }
 
-    // Save to KV
     await kv.put("stats", JSON.stringify(stats));
 
     return new Response(JSON.stringify({ success: true, stats }), {

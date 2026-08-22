@@ -1,5 +1,6 @@
 export async function onRequest(context) {
-  const kv = context.env.BADAAI_KV;
+  // Gamitin ang SUBSCRIPTIONS KV
+  const kv = context.env.SUBSCRIPTIONS;
 
   if (!kv) {
     return new Response(JSON.stringify({ error: "KV namespace not found" }), {
