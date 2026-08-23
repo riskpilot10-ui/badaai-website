@@ -1,0 +1,24 @@
+{
+  "apps": [
+    {
+      "id": "smart-inventory-pro",
+      "name": "Smart Inventory Pro",
+      "category": "Inventory · POS · Reports",
+      "description": "Track stock and sales without needing a signal.",
+      "price": "₱99",
+      "price_note": "/ month · 30-day free trial",
+      "badge": "PREMIUM",
+      "status": "Active",
+      "downloads": {
+        "android": "https://github.com/riskpilot10-ui/smart-inventory-pro/releases/download/v1.0.0/SmartInventory-Signed-APK.apk",
+        "windows": "https://github.com/riskpilot10-ui/smart-inventory-pro/releases/download/v1.0.0/SmartInventory-Pro-Setup.exe"
+      },
+      "mockup_items": [
+        { "name": "T-Shirt · Nike", "stock": "20 pcs" },
+        { "name": "Jeans · Levi's", "stock": "15 pcs" },
+        { "name": "Notebook", "stock": "5 pcs — LOW", "low": true },
+        { "name": "Bond Paper", "stock": "80 pcs" }
+      ]
+    }
+  ]
+}
