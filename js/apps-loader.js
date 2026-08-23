@@ -22,6 +22,13 @@ function createAppCard(app, index) {
   const card = document.createElement('div');
   card.className = 'app-card';
   
+  // Logo HTML (kung may logo)
+  const logoHTML = app.logo ? `
+    <div class="app-logo" style="text-align: center; margin-bottom: 16px;">
+      <img src="${app.logo}" alt="${app.name}" style="width: 64px; height: 64px; border-radius: 12px; object-fit: cover;">
+    </div>
+  ` : '';
+  
   // Mockup section
   let mockupItems = '';
   if (app.mockup_items) {
@@ -49,6 +56,7 @@ function createAppCard(app, index) {
   // Info section
   const infoHTML = `
     <div class="app-info">
+      ${logoHTML}
       <div class="app-eyebrow">${app.category || ''}</div>
       <h3>${app.name}</h3>
       <p>${app.description || ''}</p>
