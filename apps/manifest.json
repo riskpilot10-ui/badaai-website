@@ -3,15 +3,16 @@
     {
       "id": "smart-inventory-pro",
       "name": "Smart Inventory Pro",
+      "logo": "/images/smart-inventory-logo.png",
       "category": "Inventory · POS · Reports",
-      "description": "Track stock and sales without needing a signal.",
+      "description": "Track stock and sales without needing a signal. Product tracking, POS checkout, low-stock alerts, barcode scanner, and PDF/CSV exports.",
       "price": "₱99",
       "price_note": "/ month · 30-day free trial",
       "badge": "PREMIUM",
       "status": "Active",
       "downloads": {
-        "android": "https://github.com/riskpilot10-ui/smart-inventory-pro/releases/download/v1.0.0/SmartInventory-Signed-APK.apk",
-        "windows": "https://github.com/riskpilot10-ui/smart-inventory-pro/releases/download/v1.0.0/SmartInventory-Pro-Setup.exe"
+        "android": "https://drive.google.com/uc?export=download&id=1OVtvpdQqk56BbdcTLSXP70N8S3huyNoq",
+        "windows": "https://drive.google.com/uc?export=download&id=1ygq3MJhNCgg4Qle-NzOrL7Tix6_IS3mi"
       },
       "mockup_items": [
         { "name": "T-Shirt · Nike", "stock": "20 pcs" },
