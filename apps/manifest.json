@@ -12,7 +12,7 @@
       "status": "Active",
       "downloads": {
         "android": "https://github.com/riskpilot10-ui/badaai-website/releases/download/v1.0.0/SmartInventory-Signed-APK.apk",
-        "windows": "https://github.com/riskpilot10-ui/badaai-website/releases/download/v1.0.0/SmartInventory-Pro-Setup.exe"
+        "windows": "https://github.com/riskpilot10-ui/badaai-website/releases/download/v1.0.0/SmartInventoryPro-Windows-EXE.zip"
       },
       "mockup_items": [
         { "name": "T-Shirt · Nike", "stock": "20 pcs" },
