@@ -11,8 +11,8 @@
       "badge": "PREMIUM",
       "status": "Active",
       "downloads": {
-        "android": "https://github.com/riskpilot10-ui/badaai-website/releases/download/v1.0.0/inventory%20002.apk",
-        "windows": "https://github.com/riskpilot10-ui/badaai-website/releases/download/v1.0.0/inventory%20002.exe"
+        "android": "https://github.com/riskpilot10-ui/badaai-website/releases/download/v1.0.0/inventory.002.apk",
+        "windows": "https://github.com/riskpilot10-ui/badaai-website/releases/download/v1.0.0/inventory.002.exe"
       },
       "mockup_items": [
         { "name": "T-Shirt · Nike", "stock": "20 pcs" },
